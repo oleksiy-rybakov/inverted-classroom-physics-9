@@ -2,6 +2,7 @@
  'use strict';
  const KEY='inverted-classroom-physics-9:v1',APP='inverted-classroom-physics-9';
  const lessons=typeof LESSONS!=='undefined'?LESSONS:require('./lessons.js');
+ const W=typeof Worksheet!=='undefined'?Worksheet:require('./worksheet.js');
  const all=lessons.flatMap(l=>l.tasks);
  const clone=v=>JSON.parse(JSON.stringify(v));
  const txt=(v,n=2400)=>typeof v==='string'?v.slice(0,n):'';
@@ -14,6 +15,7 @@
   const value=Number(s);return Number.isFinite(value)?value:null;
  }
  function check(task,value){
+  if(task.type==='worksheet')return W.check(task,value);
   if(task.type==='choice')return String(value)===task.answer;
   const n=numeric(value,task.unit);if(n===null||Math.abs(n-task.answer)>(task.tolerance??Math.max(1,Math.abs(task.answer))*1e-8))return false;
   if(task.type==='significant'){
@@ -23,7 +25,7 @@
   }
   return true;
  }
- function fresh(){return {app:APP,version:1,updatedAt:new Date().toISOString(),profile:'',settings:{preview:false},last:'learn',missions:{energy:{preparation:{chapter:0,answers:{},hints:{},notes:{},video:{},question:''},escape:null}}};}
+ function fresh(){return {app:APP,version:2,updatedAt:new Date().toISOString(),profile:'',settings:{preview:false},last:'learn',missions:{energy:{preparation:{chapter:0,answers:{},legacyAnswers:{},hints:{},notes:{},video:{},question:''},escape:null}}};}
  function normalizeEscape(v){
   if(v===null||v===undefined)return null;
   if(typeof v!=='object'||Array.isArray(v)||![1,2].includes(v.version)||!Array.isArray(v.answers)||!Array.isArray(v.solved)||v.answers.length>16||v.solved.length>16)throw Error('Der Escape-Spielstand ist unvollständig oder gehört zu einer anderen Version.');
@@ -37,14 +39,15 @@
  }
  function normalize(raw){
   if(!raw||raw.app!==APP)throw Error('Das ist keine Sicherung für dieses Physik-9-Portal.');
-  if(raw.version!==1)throw Error('Diese Sicherung stammt aus einer anderen Portal-Version. Der aktuelle Stand bleibt erhalten.');
+  if(![1,2].includes(raw.version))throw Error('Diese Sicherung stammt aus einer anderen Portal-Version. Der aktuelle Stand bleibt erhalten.');
   if(!raw.missions?.energy?.preparation||typeof raw.missions.energy.preparation!=='object')throw Error('Die Sicherung enthält keine vollständige Energie-Mission.');
   const s=fresh(),p=raw.missions.energy.preparation;
   s.updatedAt=typeof raw.updatedAt==='string'&&!isNaN(Date.parse(raw.updatedAt))?raw.updatedAt:s.updatedAt;
   s.profile=txt(raw.profile,45);s.settings.preview=false;s.last=raw.last==='escape'?'escape':'learn';
   const q=s.missions.energy.preparation;q.chapter=Math.floor(num(p.chapter,4));q.question=txt(p.question,1500);
   if(!p.answers||typeof p.answers!=='object'||Array.isArray(p.answers))throw Error('Die gespeicherten Lernantworten sind ungültig.');
-  for(const t of all){if(p.answers[t.id]!==undefined)q.answers[t.id]=txt(p.answers[t.id],180);q.hints[t.id]=p.hints?.[t.id]===true;}
+  for(const t of all){if(p.answers[t.id]!==undefined)q.answers[t.id]=W.normalize(t,p.answers[t.id]);q.hints[t.id]=p.hints?.[t.id]===true;}
+  for(const [id,value] of Object.entries({...p.legacyAnswers,...p.answers}))if(/^(?:[bhks][1-4]|e[1-5])$/.test(id))q.legacyAnswers[id]=txt(value,180);
   for(const l of lessons){q.notes[l.id]=txt(p.notes?.[l.id],2000);q.video[l.id]=num(p.video?.[l.id],3600);}
   s.missions.energy.escape=normalizeEscape(raw.missions.energy.escape);
   return s;
@@ -71,7 +74,7 @@
  function update(fn){if(conflict||replacing){notice();return false;}fn(data);data.settings.preview=false;if(data.missions.energy.escape)data.missions.energy.escape.training=false;return persist();}
  const api={KEY,APP,fresh,normalize,normalizeEscape,numeric,check,stats,chapterDone,missionUnlocked,get,
   update,freeze:()=>{replacing=true;},storageStatus:()=>({message:storageError,conflict}),
-  setAnswer:(id,value)=>update(s=>s.missions.energy.preparation.answers[id]=txt(value,180)),
+  setAnswer:(id,value)=>{const task=all.find(t=>t.id===id);return task?update(s=>s.missions.energy.preparation.answers[id]=W.normalize(task,value)):false;},
   touch:where=>update(s=>s.last=where),
   updateEscape:v=>update(s=>s.missions.energy.escape=normalizeEscape(v)),
   canEscape:()=>!!root.Auth?.isPreview()||stats(data).chapters===lessons.length,

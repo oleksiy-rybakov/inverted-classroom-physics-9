@@ -1,0 +1,24 @@
+.worksheet>h3{font-size:18px;line-height:1.65;margin-block:16px 30px}
+.worksheet-step{border:0;border-top:1px solid var(--line);padding:24px 0 8px;margin:24px 0;min-width:0}
+.worksheet-step legend{font:24px/1.4 Georgia,serif;padding-right:20px}
+.worksheet-step legend>span{font:13px 'Segoe UI',sans-serif;display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#e2e8db;margin-right:8px;vertical-align:middle}
+.worksheet-step p{font-size:13px;color:var(--muted)}
+.worksheet-step label{display:block;font-size:13px;font-weight:600;margin:8px 0}
+.worksheet-step input[type=text],.worksheet-step textarea,.worksheet-step select{width:100%;min-width:0;background:#fffef9;color:var(--ink);border:1px solid #95a79b;border-radius:5px;padding:12px;font-size:15px}
+.worksheet-step .answer-unit input{max-width:none;flex:1}
+.worksheet-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 20px}
+.worksheet-help{font-size:12px!important;margin:7px 0 16px}
+.worksheet-error{color:#943b2c!important;font-size:12px!important;margin:6px 0;min-height:0}
+.worksheet-step [aria-invalid=true]{border-color:#943b2c!important;background:#fff8f1}
+.worksheet-check{display:flex!important;gap:10px;align-items:flex-start;font-weight:400!important}
+.worksheet-check input{width:18px;height:18px;flex:none;margin-top:3px;accent-color:var(--green)}
+.phase-lock{max-width:760px;background:#fffdf7;border:1px solid #d4dbd1;border-radius:10px;color:#183a3e;padding:36px;margin:45px auto;font:16px/1.7 'Segoe UI',sans-serif}
+.phase-lock h1{font:38px/1.15 Georgia,serif;letter-spacing:-1px;margin:20px 0}
+.phase-lock label{display:block;font-size:14px;font-weight:600;margin-bottom:10px}
+.phase-lock input{display:block;width:100%;max-width:450px;border:1px solid #879e91;border-radius:5px;padding:12px;color:#183a3e;background:white;font:17px 'Segoe UI',sans-serif}
+.phase-lock form{margin:25px 0}.phase-lock .pbtn{display:inline-flex;align-items:center;justify-content:center;color:#183a3e;border:1px solid #879e91;text-decoration:none;padding:10px 18px;background:transparent;border-radius:5px;font:14px 'Segoe UI',sans-serif;cursor:pointer}
+.phase-lock .primary{background:#244f47;color:#fffdf7;border-color:#244f47}
+.phase-lock .small{font-size:12px;color:#576d6c}.phase-lock #phase-message{font-size:13px;color:#943b2c;min-height:1.5em}
+body[data-access-locked] .topbar,body[data-access-locked] footer,body[data-access-locked]>.skip{display:none!important}
+@media(max-width:760px){.worksheet-grid{grid-template-columns:1fr}.worksheet-step legend{font-size:22px}.phase-lock{margin:25px auto;padding:24px}.phase-lock h1{font-size:31px}.worksheet>h3{font-size:16px}.worksheet-step{margin:20px 0;padding-top:18px}}
+@media print{.worksheet-step{break-inside:avoid}.worksheet-step legend{font-size:18pt}.worksheet-check,.worksheet-help,.worksheet-error{display:none!important}}

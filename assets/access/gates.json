@@ -1,0 +1,20 @@
+{
+  "app": "inverted-classroom-physics-9",
+  "version": 1,
+  "entries": [
+    {
+      "scope": "energy:learn",
+      "iterations": 600000,
+      "salt": "AgB/m6SiZZZMaMIuOvCz9A==",
+      "iv": "Rnx37NqtcDuG1TP1",
+      "ciphertext": "N0MhZRVYjGW6kgghtb7a7Cui6COwoQT3dR6ZOXyz4fJvwV0SSdxZs0k1Ci2823jAXbT9mzqCBN831hHSOTsHLNES0zA91ipHbcJU+r3ex373HjWVVI3WEvE="
+    },
+    {
+      "scope": "energy:escape",
+      "iterations": 600000,
+      "salt": "fW/w1BskzflmWxcAHcx0lQ==",
+      "iv": "H+udGd2s7APQfLYM",
+      "ciphertext": "FwWSq/lXbKNvGN+RjFzmhAIoa+8Hs/3x4iBY5mn3K6URev19dPxFLE7zAkAfmfSeGhqdbSXsSDya5BYFXbHgd6HhTgy4iIVLeaEmfOVpEKoCJ3+d8NO1XedH"
+    }
+  ]
+}

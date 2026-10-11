@@ -7,10 +7,22 @@
  function validate(entry){
   if(!entry||!['student','teacher'].includes(entry.role)||entry.iterations!==600000||bytes(entry.salt).length!==16||bytes(entry.iv).length!==12)throw Error('Ungültige Anmeldekonfiguration.');
  }
- async function derive(password,entry){
-  validate(entry);
+ async function deriveRaw(password,entry){
   const material=await root.crypto.subtle.importKey('raw',utf8.encode(password),'PBKDF2',false,['deriveBits']);
   return new Uint8Array(await root.crypto.subtle.deriveBits({name:'PBKDF2',salt:bytes(entry.salt),iterations:entry.iterations,hash:'SHA-256'},material,256));
+ }
+ async function derive(password,entry){validate(entry);return deriveRaw(password,entry);}
+ function validateGate(entry){
+  if(!entry||!/^[a-z0-9-]+:(learn|escape)$/.test(entry.scope)||entry.iterations!==600000||bytes(entry.salt).length!==16||bytes(entry.iv).length!==12)throw Error('Ungültige Freigabekonfiguration.');
+ }
+ async function deriveGate(password,entry){validateGate(entry);return deriveRaw(password,entry);}
+ async function openGate(rawKey,entry){
+  validateGate(entry);
+  const key=await root.crypto.subtle.importKey('raw',rawKey,{name:'AES-GCM'},false,['decrypt']);
+  const plain=await root.crypto.subtle.decrypt({name:'AES-GCM',iv:bytes(entry.iv),additionalData:utf8.encode(`${APP}:gate:1:${entry.scope}`)},key,bytes(entry.ciphertext));
+  const payload=JSON.parse(text.decode(plain));
+  if(payload.app!==APP||payload.version!==1||payload.scope!==entry.scope)throw Error('Ungültige Freigabe.');
+  return payload;
  }
  async function open(rawKey,entry){
   validate(entry);
@@ -30,6 +42,6 @@
    return url.href;
   }catch{return new URL('index.html',base).href;}
  }
- const api={APP,VERSION,bytes,base64,derive,open,destination};
+ const api={APP,VERSION,bytes,base64,derive,open,deriveGate,openGate,destination};
  root.PortalCrypto=Object.freeze(api);if(typeof module!=='undefined')module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

@@ -1,7 +1,7 @@
 (async () => {
-await PortalUIReady;if(!Auth.isAuthenticated())return;
+if(!await PortalUIReady)return;
 'use strict';
-if(!Portal.canEscape()) {
+if(!Auth.isTeacher()&&!Portal.canEscape()) {
  document.querySelector('main').innerHTML='<section class="panel" style="padding:40px;margin:40px 0"><span class="eyebrow">MISSION 01 · VORBEREITUNG</span><h1>Die Bergstation wartet.</h1><p>Schließe zuerst die fünf Lernkapitel ab. Danach wird das Escape Game freigeschaltet.</p><a class="btn primary" href="lernen.html">Zur Vorbereitung →</a></section>';
  document.querySelector('.topbar').hidden=true; document.querySelector('.footer').hidden=true; return;
 }

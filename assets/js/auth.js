@@ -11,7 +11,7 @@
  function loginUrl(){const next=location.pathname.slice(base.pathname.length)+location.search+location.hash;return new URL('anmelden.html?next='+encodeURIComponent(next),base).href;}
  function redirect(){if(leaving)return;leaving=true;document.documentElement.dataset.authState='pending';location.replace(loginUrl());}
  function storeSession(){
-  const value={version:1,role:active.payload.role,key:C.base64(active.key),expiresAt:active.expiresAt,epoch:active.epoch,preview:active.preview,training:active.training};
+  const value={version:1,id:active.id,role:active.payload.role,key:C.base64(active.key),expiresAt:active.expiresAt,epoch:active.epoch,preview:active.preview,training:active.training};
   sessionStorage.setItem(SESSION,JSON.stringify(value));
  }
  async function restore(){
@@ -26,7 +26,8 @@
    const saved=JSON.parse(serialized),entry=config.entries.find(e=>e.role===saved.role);
    if(saved.version!==1||!entry||!Number.isFinite(saved.expiresAt)||saved.expiresAt<=Date.now()||saved.expiresAt>Date.now()+MAX_AGE||saved.epoch!==epoch()){clear();return;}
    const key=C.bytes(saved.key),payload=await C.open(key,entry);
-   active={key,payload,expiresAt:saved.expiresAt,epoch:saved.epoch,preview:payload.role==='teacher'&&saved.preview===true,training:payload.role==='teacher'&&saved.training===true};
+   active={id:typeof saved.id==='string'?saved.id:crypto.randomUUID(),key,payload,expiresAt:saved.expiresAt,epoch:saved.epoch,preview:payload.role==='teacher'&&saved.preview===true,training:payload.role==='teacher'&&saved.training===true};
+   if(!saved.id)storeSession();
   }catch(e){clear();if(!configurationReady)problem=e.message||'Die Anmeldung ist nicht verfügbar.';}
  }
  const ready=restore();
@@ -39,7 +40,7 @@
    try{const key=await C.derive(password,entry);const payload=await C.open(key,entry);accepted={key,payload};break;}catch{}
   }
   if(!accepted)throw Error('Das Passwort stimmt nicht. Bitte versuche es erneut.');
-  active={...accepted,expiresAt:Date.now()+MAX_AGE,epoch:epoch(),preview:false,training:false};
+  active={...accepted,id:crypto.randomUUID(),expiresAt:Date.now()+MAX_AGE,epoch:epoch(),preview:false,training:false};
   try{storeSession();}catch{clear();throw Error('Dieser Browser blockiert den Sitzungsspeicher. Erlaube ihn, um dich anzumelden.');}
   return role();
  }
@@ -58,11 +59,11 @@
   account.innerHTML=`<span class="auth-role">${role()==='teacher'?'Lehrkraft':'Schüler/in'}</span><button type="button" data-logout>Abmelden</button>`;
   account.querySelector('button').onclick=logout;host.append(account);
  }
- async function requireRole(required='any'){
+ async function requireRole(required='any',reveal=true){
   await ready;
   if(problem){document.body.innerHTML=`<main class="auth-error"><h1>Anmeldung nicht verfügbar</h1><p>${safe(problem)}</p><button onclick="location.reload()">Erneut versuchen</button></main>`;document.documentElement.dataset.authState='ready';return false;}
   if(!valid()){redirect();return false;}
-  mount();document.documentElement.dataset.authState='ready';
+  mount();if(reveal)document.documentElement.dataset.authState='ready';
   if(required==='teacher'&&role()!=='teacher'){
    const main=document.querySelector('main');main.className='wrap article';main.innerHTML=`<span class="eyebrow">ZUGRIFF BESCHRÄNKT</span><h1>Dieser Bereich ist für Lehrkräfte.</h1><p>Du bist als Schüler/in angemeldet. Dein Zugang gilt für Lernvideos, Aufgaben und Missionen.</p><div class="teacher-actions"><a class="pbtn primary" href="${base.href}">Zu meinen Missionen</a><button class="pbtn" id="change-role">Mit anderem Passwort anmelden</button></div>`;
    document.getElementById('change-role').onclick=logout;return false;
@@ -74,7 +75,7 @@
  const api={ready,login,logout,requireRole,role,isTeacher:()=>role()==='teacher',isAuthenticated:valid,teacherContent,
   isPreview:()=>role()==='teacher'&&active.preview,isTraining:()=>role()==='teacher'&&active.training,
   setPreview:v=>preference('preview',v),setTraining:v=>preference('training',v),
-  destination:value=>C.destination(value,base,role()),base:base.href,problem:()=>problem};
+  destination:value=>C.destination(value,base,role()),base:base.href,problem:()=>problem,sessionTag:()=>valid()?active.id:null};
  window.Auth=Object.freeze(api);
  async function checkSession(){await ready;if(problem||document.body.dataset.page==='login')return;if(!valid()){window.Portal?.freeze();clear();redirect();}}
  window.addEventListener('storage',e=>{if(e.key===LOGOUT){window.Portal?.freeze();clear();if(document.body.dataset.page!=='login')redirect();}});
