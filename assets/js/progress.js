@@ -56,15 +56,15 @@
   visited.add(m.id);
   return m.requires.every(id=>s.missions[id]?.escape?.finished===true);
  }
- let data=fresh(),storage=null,storageError='',conflict=false,corrupt=false,replacing=false;
- if(root.document){try{storage=root.localStorage;const raw=storage.getItem(KEY);if(raw)data=normalize(JSON.parse(raw));}catch(e){storageError='Der gespeicherte Stand konnte nicht gelesen werden. Er bleibt unverändert. Lade eine gültige Sicherung oder sichere deine neue Arbeit als Datei.';corrupt=true;}}
+ let data=fresh(),storage=null,lastStored=null,storageError='',conflict=false,corrupt=false,replacing=false;
+ if(root.document){try{storage=root.localStorage;const raw=storage.getItem(KEY);lastStored=raw;if(raw)data=normalize(JSON.parse(raw));}catch(e){storageError='Der gespeicherte Stand konnte nicht gelesen werden. Er bleibt unverändert. Lade eine gültige Sicherung oder sichere deine neue Arbeit als Datei.';corrupt=true;}}
  function get(){return clone(data);}
  function notice(){if(root.document)root.dispatchEvent(new CustomEvent('portalnotice',{detail:{message:storageError,conflict}}));}
  function persist(){
   if(conflict){notice();return false;}
   data.updatedAt=new Date().toISOString();
   if(corrupt){notice();return false;}
-  if(storage)try{storage.setItem(KEY,JSON.stringify(data));}catch(e){storageError='Automatisches Speichern ist hier nicht möglich. Nutze „Stand sichern“, bevor du die Seite verlässt.';notice();return false;}
+  if(storage)try{const serialized=JSON.stringify(data);storage.setItem(KEY,serialized);lastStored=serialized;}catch(e){storageError='Automatisches Speichern ist hier nicht möglich. Nutze „Stand sichern“, bevor du die Seite verlässt.';notice();return false;}
   if(root.document)root.dispatchEvent(new CustomEvent('portalchange'));
   return true;
  }
@@ -80,6 +80,10 @@
   reset:()=>{data=fresh();corrupt=false;conflict=false;persist();},
   download:()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Physik-9-Lernstand-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);}
  };
- if(root.document)root.addEventListener('storage',e=>{if(e.key===KEY){conflict=true;storageError='In einem anderen Tab wurde der Lernstand geändert. Sichere bei Bedarf diesen Stand als Datei und lade die Seite neu, bevor du weiterarbeitest.';notice();}});
+ if(root.document)root.addEventListener('storage',e=>{if(e.key===KEY){
+  // Notifications can arrive after navigation or after a newer local write.
+  // A value already loaded or saved by this page is not a competing edit.
+  try{if(storage&&storage.getItem(KEY)===lastStored)return;}catch(err){}
+  conflict=true;storageError='In einem anderen Tab wurde der Lernstand geändert. Sichere bei Bedarf diesen Stand als Datei und lade die Seite neu, bevor du weiterarbeitest.';notice();}});
  root.Portal=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
