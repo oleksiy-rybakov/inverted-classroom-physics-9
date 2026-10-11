@@ -1,0 +1,118 @@
+WEBVTT
+
+00:00:00.711 --> 00:00:05.823
+Eine gedehnte oder zusammengedrückte Feder
+kann einen Wagen in Bewegung
+
+00:00:05.833 --> 00:00:06.648
+setzen.
+
+00:00:07.551 --> 00:00:09.678
+Sie speichert Spannenergie.
+
+00:00:10.570 --> 00:00:15.760
+Wir betrachten eine lineare Feder innerhalb
+ihres elastischen Bereichs.
+
+00:00:16.649 --> 00:00:20.666
+Nach der Entlastung kehrt sie in ihre
+Ausgangsform zurück.
+
+00:00:21.560 --> 00:00:25.348
+Zu starke Verformungen passen nicht zu
+diesem Modell.
+
+00:00:28.767 --> 00:00:32.479
+Die Federkonstante D beschreibt die
+Steifigkeit.
+
+00:00:33.382 --> 00:00:38.389
+Je größer sie ist, desto mehr Kraft
+brauchen wir für denselben Weg.
+
+00:00:39.281 --> 00:00:43.572
+Der Verformungsweg s wird ab der
+entspannten Lage gemessen.
+
+00:00:44.464 --> 00:00:48.511
+D setzen wir in Newton pro Meter ein, s in
+Metern.
+
+00:00:51.927 --> 00:00:56.993
+Die Spannenergie ist ein halb mal
+Federkonstante mal Verformungsweg zum
+
+00:00:57.003 --> 00:00:58.017
+Quadrat.
+
+00:00:58.935 --> 00:01:02.860
+Das sieht ähnlich aus wie die Formel der
+Bewegungsenergie.
+
+00:01:03.752 --> 00:01:07.327
+Hier werden aber andere Größen eingesetzt.
+
+00:01:08.218 --> 00:01:12.629
+Eine Feder mit zweihundert Newton pro Meter
+wird um null Komma eins
+
+00:01:12.639 --> 00:01:13.851
+Meter gedehnt.
+
+00:01:17.271 --> 00:01:21.364
+Null Komma eins zum Quadrat ist null Komma
+null eins.
+
+00:01:22.282 --> 00:01:26.863
+Ein halb mal zweihundert mal null Komma
+null eins ergibt ein Joule.
+
+00:01:27.754 --> 00:01:31.985
+Verdoppeln wir den Verformungsweg auf null
+Komma zwei Meter,
+
+00:01:32.130 --> 00:01:35.628
+vervierfacht sich die Spannenergie auf vier
+Joule.
+
+00:01:39.039 --> 00:01:43.053
+Wir multiplizieren die Gleichung mit zwei
+und teilen durch die
+
+00:01:43.063 --> 00:01:44.611
+Federkonstante.
+
+00:01:45.513 --> 00:01:47.990
+Dann ziehen wir die Quadratwurzel.
+
+00:01:48.882 --> 00:01:52.912
+Bei einem Joule und zweihundert Newton pro
+Meter erhalten wir die
+
+00:01:52.922 --> 00:01:56.527
+Wurzel aus null Komma null eins
+Quadratmetern.
+
+00:01:57.419 --> 00:02:01.161
+Der Verformungsweg beträgt null Komma eins
+Meter.
+
+00:02:04.575 --> 00:02:09.184
+Für die Federkonstante multiplizieren wir
+die Energie mit zwei und
+
+00:02:09.194 --> 00:02:12.464
+teilen durch den Verformungsweg zum
+Quadrat.
+
+00:02:13.382 --> 00:02:18.295
+Bei einem Joule und null Komma eins Meter
+ergibt das zwei geteilt durch
+
+00:02:18.305 --> 00:02:22.200
+null Komma null eins: zweihundert Newton
+pro Meter.
+
+00:02:23.092 --> 00:02:26.438
+Kontrolliere zuerst die Umrechnung des
+Weges.

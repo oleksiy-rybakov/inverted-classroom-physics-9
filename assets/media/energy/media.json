@@ -1,0 +1,232 @@
+[
+  {
+    "id": "basics",
+    "title": "Energie verstehen und Einheiten vorbereiten",
+    "video": "energy-1.mp4",
+    "captions": "energy-1.vtt",
+    "poster": "energy-1.jpg",
+    "duration": 159.36,
+    "scenes": [
+      {
+        "title": "Energie steckt in vielen Veränderungen",
+        "text": "Ein angehobener Ball besitzt Höhenenergie. Ein rollender Ball besitzt Bewegungsenergie. In einer gespannten Feder steckt Spannenergie. Energie kann von einer Form in eine andere übergehen. Beim Fallen wird zum Beispiel Höhenenergie in Bewegungsenergie umgewandelt.",
+        "start": 0.0,
+        "end": 26.712
+      },
+      {
+        "title": "Die Einheit der Energie heißt Joule",
+        "text": "Wir verwenden für Energie das Formelzeichen E. Ihre Einheit ist Joule, gesprochen Dschuul, mit dem Einheitenzeichen J. Tausend Joule sind ein Kilojoule. Energie ist nicht dasselbe wie Kraft. Kraft messen wir in Newton, Energie in Joule.",
+        "start": 26.712,
+        "end": 52.008
+      },
+      {
+        "title": "Vor dem Einsetzen: in SI-Einheiten umrechnen",
+        "text": "Für unsere Energieformeln rechnen wir mit Kilogramm, Metern und Sekunden. Zweihundert Gramm werden zu null Komma zwei Kilogramm. Fünf Zentimeter werden zu null Komma null fünf Metern. Rechne diese Größen zuerst um und schreibe die Einheit immer dazu.",
+        "start": 52.008,
+        "end": 76.896
+      },
+      {
+        "title": "Geschwindigkeit: Kilometer pro Stunde",
+        "text": "Ein Kilometer sind tausend Meter. Eine Stunde sind dreitausendsechshundert Sekunden. Deshalb teilen wir eine Geschwindigkeit in Kilometer pro Stunde durch drei Komma sechs. Sechsunddreißig Kilometer pro Stunde sind zehn Meter pro Sekunde. In die Bewegungsenergie setzen wir zehn ein.",
+        "start": 76.896,
+        "end": 105.072
+      },
+      {
+        "title": "Federkonstante: Newton pro Zentimeter",
+        "text": "Bei einer linearen Feder beschreibt die Federkonstante ihre Steifigkeit. Zwei Newton pro Zentimeter entsprechen zweihundert Newton pro Meter. Denn ein Meter umfasst hundert Zentimeter. Hier multiplizieren wir mit hundert. Das ist eine andere Umrechnung als bei einer einzelnen Länge.",
+        "start": 105.072,
+        "end": 132.912
+      },
+      {
+        "title": "Erst am Ende sinnvoll runden",
+        "text": "Behalte in Zwischenrechnungen zusätzliche Stellen. Runde erst das Endergebnis. Bei gemessenen Größen richtet sich die Genauigkeit nach den Angaben. Null Komma null fünf null hat zwei gültige Ziffern: fünf und die letzte Null. Führende Nullen zählen nicht mit.",
+        "start": 132.912,
+        "end": 159.36
+      }
+    ]
+  },
+  {
+    "id": "height",
+    "title": "Höhenenergie: Lage macht einen Unterschied",
+    "video": "energy-2.mp4",
+    "captions": "energy-2.vtt",
+    "poster": "energy-2.jpg",
+    "duration": 143.976,
+    "scenes": [
+      {
+        "title": "Wähle zuerst die Bezugshöhe",
+        "text": "Ein Buch auf einem Regal kann beim Herunterfallen etwas verändern. Es besitzt Höhenenergie. Ihre Größe hängt davon ab, von welcher Höhe aus wir messen. Wir wählen hier den Boden als Bezugshöhe. Dort setzen wir die Höhenenergie gleich null.",
+        "start": 0.0,
+        "end": 24.672
+      },
+      {
+        "title": "Drei Größen bestimmen die Höhenenergie",
+        "text": "Die Formel lautet: Höhenenergie ist Masse mal Fallbeschleunigung mal Höhe. Die Masse messen wir in Kilogramm und die Höhe in Metern. Nahe der Erdoberfläche verwenden wir für die Fallbeschleunigung neun Komma acht eins Meter pro Sekunde zum Quadrat.",
+        "start": 24.672,
+        "end": 47.832
+      },
+      {
+        "title": "Ein Zahlenbeispiel",
+        "text": "Ein Körper mit zwei Kilogramm Masse liegt drei Meter über der Bezugshöhe. Wir setzen beide Werte ein. Zwei mal neun Komma acht eins mal drei ergibt achtundfünfzig Komma acht sechs Joule. Das ist seine Höhenenergie relativ zum gewählten Boden.",
+        "start": 47.832,
+        "end": 71.976
+      },
+      {
+        "title": "Was passiert beim Verdoppeln?",
+        "text": "Die Höhe steht in der Formel als einfacher Faktor. Bei doppelter Höhe und gleicher Masse verdoppelt sich deshalb die Höhenenergie. Auch eine doppelte Masse führt bei gleicher Höhe zur doppelten Energie. Vergleiche jeweils nur eine veränderte Größe.",
+        "start": 71.976,
+        "end": 95.664
+      },
+      {
+        "title": "Die Höhe ist gesucht",
+        "text": "Jetzt kennen wir die Energie und suchen die Höhe. Wir teilen beide Seiten der Formel durch Masse mal Fallbeschleunigung. Dadurch bleibt die Höhe allein stehen. Höhe ist also Höhenenergie geteilt durch das Produkt aus Masse und Fallbeschleunigung.",
+        "start": 95.664,
+        "end": 118.704
+      },
+      {
+        "title": "Einsetzen und die Einheit prüfen",
+        "text": "Bei neunundneunzig Komma neun Joule und zwei Kilogramm rechnen wir neunundneunzig Komma neun geteilt durch zwei mal neun Komma acht eins. Der Nenner beträgt neunzehn Komma sechs zwei. Wir erhalten ungefähr fünf Komma null neun Meter. Die gesuchte Größe ist eine Länge.",
+        "start": 118.704,
+        "end": 143.976
+      }
+    ]
+  },
+  {
+    "id": "kinetic",
+    "title": "Bewegungsenergie: Geschwindigkeit im Quadrat",
+    "video": "energy-3.mp4",
+    "captions": "energy-3.vtt",
+    "poster": "energy-3.jpg",
+    "duration": 151.224,
+    "scenes": [
+      {
+        "title": "Ein rollender Körper kann etwas bewegen",
+        "text": "Ein fahrender Wagen kann einen anderen Körper anschieben. Er besitzt Bewegungsenergie, auch kinetische Energie genannt. Zwei Größen bestimmen sie: die Masse des Wagens und seine Geschwindigkeit. Wir betrachten hier nur die Bewegung als Ganzes und vernachlässigen die Drehung der Räder.",
+        "start": 0.0,
+        "end": 27.12
+      },
+      {
+        "title": "Die Formel richtig lesen",
+        "text": "Die Bewegungsenergie ist ein halb mal Masse mal Geschwindigkeit zum Quadrat. Nur die Geschwindigkeit wird quadriert. Die Masse setzen wir in Kilogramm ein, die Geschwindigkeit in Metern pro Sekunde. Das Ergebnis erhalten wir in Joule.",
+        "start": 27.12,
+        "end": 50.448
+      },
+      {
+        "title": "Rechnen in drei Schritten",
+        "text": "Unser Wagen hat zwei Kilogramm Masse und fährt drei Meter pro Sekunde. Zuerst quadrieren wir die drei und erhalten neun. Ein halb mal zwei ergibt eins. Eins mal neun ergibt neun Joule Bewegungsenergie.",
+        "start": 50.448,
+        "end": 71.952
+      },
+      {
+        "title": "Doppelte Geschwindigkeit: vierfache Energie",
+        "text": "Nun fährt derselbe Wagen doppelt so schnell: sechs Meter pro Sekunde. Sechs zum Quadrat ist sechsunddreißig. Seine Bewegungsenergie beträgt jetzt sechsunddreißig Joule. Sie ist viermal so groß. Eine doppelte Masse würde die Energie dagegen nur verdoppeln.",
+        "start": 71.952,
+        "end": 98.232
+      },
+      {
+        "title": "Aus der Energie die Geschwindigkeit bestimmen",
+        "text": "Wir multiplizieren die Energiegleichung mit zwei und teilen durch die Masse. So erhalten wir die Geschwindigkeit zum Quadrat. Anschließend ziehen wir die Quadratwurzel. Bei sechzehn Joule und zwei Kilogramm ergibt sich die Wurzel aus sechzehn: vier Meter pro Sekunde.",
+        "start": 98.232,
+        "end": 123.816
+      },
+      {
+        "title": "Oder nach der Masse umstellen",
+        "text": "Ist die Masse gesucht, multiplizieren wir ebenfalls zuerst mit zwei. Dann teilen wir durch die Geschwindigkeit zum Quadrat. Bei neun Joule und drei Metern pro Sekunde rechnen wir achtzehn geteilt durch neun. Das ergibt zwei Kilogramm. Prüfe das Ergebnis mit der ursprünglichen Formel.",
+        "start": 123.816,
+        "end": 151.224
+      }
+    ]
+  },
+  {
+    "id": "spring",
+    "title": "Spannenergie: Was eine Feder speichern kann",
+    "video": "energy-4.mp4",
+    "captions": "energy-4.vtt",
+    "poster": "energy-4.jpg",
+    "duration": 149.136,
+    "scenes": [
+      {
+        "title": "Eine verformte Feder speichert Energie",
+        "text": "Eine gedehnte oder zusammengedrückte Feder kann einen Wagen in Bewegung setzen. Sie speichert Spannenergie. Wir betrachten eine lineare Feder innerhalb ihres elastischen Bereichs. Nach der Entlastung kehrt sie in ihre Ausgangsform zurück. Zu starke Verformungen passen nicht zu diesem Modell.",
+        "start": 0.0,
+        "end": 28.056
+      },
+      {
+        "title": "Federkonstante und Verformungsweg",
+        "text": "Die Federkonstante D beschreibt die Steifigkeit. Je größer sie ist, desto mehr Kraft brauchen wir für denselben Weg. Der Verformungsweg s wird ab der entspannten Lage gemessen. D setzen wir in Newton pro Meter ein, s in Metern.",
+        "start": 28.056,
+        "end": 51.216
+      },
+      {
+        "title": "Die Formel der Spannenergie",
+        "text": "Die Spannenergie ist ein halb mal Federkonstante mal Verformungsweg zum Quadrat. Das sieht ähnlich aus wie die Formel der Bewegungsenergie. Hier werden aber andere Größen eingesetzt. Eine Feder mit zweihundert Newton pro Meter wird um null Komma eins Meter gedehnt.",
+        "start": 51.216,
+        "end": 76.56
+      },
+      {
+        "title": "Das Quadrat macht den Unterschied",
+        "text": "Null Komma eins zum Quadrat ist null Komma null eins. Ein halb mal zweihundert mal null Komma null eins ergibt ein Joule. Verdoppeln wir den Verformungsweg auf null Komma zwei Meter, vervierfacht sich die Spannenergie auf vier Joule.",
+        "start": 76.56,
+        "end": 98.328
+      },
+      {
+        "title": "Der Verformungsweg ist gesucht",
+        "text": "Wir multiplizieren die Gleichung mit zwei und teilen durch die Federkonstante. Dann ziehen wir die Quadratwurzel. Bei einem Joule und zweihundert Newton pro Meter erhalten wir die Wurzel aus null Komma null eins Quadratmetern. Der Verformungsweg beträgt null Komma eins Meter.",
+        "start": 98.328,
+        "end": 123.864
+      },
+      {
+        "title": "Die Federkonstante ist gesucht",
+        "text": "Für die Federkonstante multiplizieren wir die Energie mit zwei und teilen durch den Verformungsweg zum Quadrat. Bei einem Joule und null Komma eins Meter ergibt das zwei geteilt durch null Komma null eins: zweihundert Newton pro Meter. Kontrolliere zuerst die Umrechnung des Weges.",
+        "start": 123.864,
+        "end": 149.136
+      }
+    ]
+  },
+  {
+    "id": "balance",
+    "title": "Energieerhaltung: Zwei Zustände vergleichen",
+    "video": "energy-5.mp4",
+    "captions": "energy-5.vtt",
+    "poster": "energy-5.jpg",
+    "duration": 158.064,
+    "scenes": [
+      {
+        "title": "Lege das betrachtete System fest",
+        "text": "Ein Ball fällt aus einer Höhe. Wir betrachten den Ball und die Erde gemeinsam. Ohne Luftwiderstand wird Höhenenergie in Bewegungsenergie umgewandelt. Die gesamte mechanische Energie bleibt dabei gleich. Wir vergleichen einen Zustand vor dem Fall mit einem Zustand weiter unten.",
+        "start": 0.0,
+        "end": 27.336
+      },
+      {
+        "title": "Vergleiche alle Energieformen",
+        "text": "Notiere die Energieformen in beiden Zuständen. Ihre Summe vor der Bewegung ist gleich ihrer Summe danach. In unserem Modell können Höhenenergie, Bewegungsenergie und Spannenergie vorkommen. Eine nicht vorhandene Energieform setzen wir gleich null. Verwende für die Höhen in beiden Zuständen dieselbe Bezugshöhe.",
+        "start": 27.336,
+        "end": 57.576
+      },
+      {
+        "title": "Ein Ball startet aus der Ruhe",
+        "text": "Der Ball startet aus der Ruhe in der Höhe h. Oben hat er Höhenenergie, aber noch keine Bewegungsenergie. Unten wählen wir die Bezugshöhe null. Direkt vor dem Auftreffen besitzt der Ball Bewegungsenergie. Eine Feder gibt es in diesem Beispiel nicht.",
+        "start": 57.576,
+        "end": 81.744
+      },
+      {
+        "title": "Formeln einsetzen und umstellen",
+        "text": "Wir setzen die beiden Energieformeln gleich. Masse mal Fallbeschleunigung mal Höhe ist ein halb mal Masse mal Geschwindigkeit zum Quadrat. Die Masse kürzt sich. Wir multiplizieren mit zwei und ziehen die Quadratwurzel. Die Geschwindigkeit ist die Wurzel aus zweimal Fallbeschleunigung mal Höhe.",
+        "start": 81.744,
+        "end": 109.728
+      },
+      {
+        "title": "Ein Fall aus fünf Metern",
+        "text": "Bei fünf Metern Höhe setzen wir zweimal neun Komma acht eins mal fünf unter die Wurzel. Wir ziehen also die Wurzel aus achtundneunzig Komma eins. Das ergibt ungefähr neun Komma neun Meter pro Sekunde.",
+        "start": 109.728,
+        "end": 129.936
+      },
+      {
+        "title": "Was ändert sich bei Reibung?",
+        "text": "Bei Reibung wird ein Teil der mechanischen Energie in innere Energie umgewandelt. Die Körper erwärmen sich. Energie verschwindet dabei nicht. Für das entsprechend gewählte abgeschlossene System bleibt die Gesamtenergie erhalten. Die mechanische Energie allein ist dann aber nicht konstant.",
+        "start": 129.936,
+        "end": 158.064
+      }
+    ]
+  }
+]
