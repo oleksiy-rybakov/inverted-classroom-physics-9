@@ -1,4 +1,5 @@
-(function(){
+(async function(){
+ await PortalUIReady;if(!Auth.isAuthenticated())return;
  const $=id=>document.getElementById(id);
  function render(){const s=Portal.get(),st=Portal.stats(s),escapeOpen=Portal.canEscape();
   $('nickname').value=s.profile;

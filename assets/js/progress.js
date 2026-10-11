@@ -33,7 +33,7 @@
    return a;
   });
   const solved=Array.from({length:16},(_,i)=>v.solved[i]===true&&(v.version===2||i<10));
-  return {version:2,team:txt(v.team,45)||'Team Joule',current:Math.floor(num(v.current,15)),answers,solved,attempts:Array.from({length:16},(_,i)=>Math.floor(num(v.attempts?.[i],100000))),hints:Array.from({length:16},(_,i)=>Math.floor(num(v.hints?.[i],3))),notes:txt(v.notes,5000),seconds:Math.floor(num(v.seconds,31536000)),seen:Array.isArray(v.seen)?v.seen.filter(i=>Number.isInteger(i)&&i>=0&&i<=6):[],finished:v.finished===true&&solved.every(Boolean),training:v.training===true,scenes:v.scenes!==false,voice:v.voice!==false,reduced:v.reduced===true};
+  return {version:2,team:txt(v.team,45)||'Team Joule',current:Math.floor(num(v.current,15)),answers,solved,attempts:Array.from({length:16},(_,i)=>Math.floor(num(v.attempts?.[i],100000))),hints:Array.from({length:16},(_,i)=>Math.floor(num(v.hints?.[i],3))),notes:txt(v.notes,5000),seconds:Math.floor(num(v.seconds,31536000)),seen:Array.isArray(v.seen)?v.seen.filter(i=>Number.isInteger(i)&&i>=0&&i<=6):[],finished:v.finished===true&&solved.every(Boolean),training:false,scenes:v.scenes!==false,voice:v.voice!==false,reduced:v.reduced===true};
  }
  function normalize(raw){
   if(!raw||raw.app!==APP)throw Error('Das ist keine Sicherung für dieses Physik-9-Portal.');
@@ -41,7 +41,7 @@
   if(!raw.missions?.energy?.preparation||typeof raw.missions.energy.preparation!=='object')throw Error('Die Sicherung enthält keine vollständige Energie-Mission.');
   const s=fresh(),p=raw.missions.energy.preparation;
   s.updatedAt=typeof raw.updatedAt==='string'&&!isNaN(Date.parse(raw.updatedAt))?raw.updatedAt:s.updatedAt;
-  s.profile=txt(raw.profile,45);s.settings.preview=raw.settings?.preview===true;s.last=raw.last==='escape'?'escape':'learn';
+  s.profile=txt(raw.profile,45);s.settings.preview=false;s.last=raw.last==='escape'?'escape':'learn';
   const q=s.missions.energy.preparation;q.chapter=Math.floor(num(p.chapter,4));q.question=txt(p.question,1500);
   if(!p.answers||typeof p.answers!=='object'||Array.isArray(p.answers))throw Error('Die gespeicherten Lernantworten sind ungültig.');
   for(const t of all){if(p.answers[t.id]!==undefined)q.answers[t.id]=txt(p.answers[t.id],180);q.hints[t.id]=p.hints?.[t.id]===true;}
@@ -68,14 +68,14 @@
   if(root.document)root.dispatchEvent(new CustomEvent('portalchange'));
   return true;
  }
- function update(fn){if(conflict||replacing){notice();return false;}fn(data);return persist();}
+ function update(fn){if(conflict||replacing){notice();return false;}fn(data);data.settings.preview=false;if(data.missions.energy.escape)data.missions.energy.escape.training=false;return persist();}
  const api={KEY,APP,fresh,normalize,normalizeEscape,numeric,check,stats,chapterDone,missionUnlocked,get,
-  update,storageStatus:()=>({message:storageError,conflict}),
+  update,freeze:()=>{replacing=true;},storageStatus:()=>({message:storageError,conflict}),
   setAnswer:(id,value)=>update(s=>s.missions.energy.preparation.answers[id]=txt(value,180)),
   touch:where=>update(s=>s.last=where),
   updateEscape:v=>update(s=>s.missions.energy.escape=normalizeEscape(v)),
-  canEscape:()=>data.settings.preview||stats(data).chapters===lessons.length,
-  canChapter:i=>data.settings.preview||lessons.slice(0,i).every(l=>chapterDone(data,l.id)),
+  canEscape:()=>!!root.Auth?.isPreview()||stats(data).chapters===lessons.length,
+  canChapter:i=>!!root.Auth?.isPreview()||lessons.slice(0,i).every(l=>chapterDone(data,l.id)),
   importState:raw=>{const next=normalize(raw);if(conflict)throw Error('Ein anderer Tab hat den Stand geändert. Lade diese Seite zuerst neu.');if(!storage)throw Error('Der Browser bietet keinen dauerhaften Speicher. Öffne das Portal in einem normalen Browserfenster und lade die Datei dort.');if(storage)try{storage.setItem(KEY+':previous',JSON.stringify(data));storage.setItem(KEY,JSON.stringify(next));}catch(e){throw Error('Der Browser kann die importierte Sicherung nicht dauerhaft speichern. Der aktuelle Stand wurde nicht ersetzt.');}data=next;corrupt=false;storageError='';persist();replacing=true;return get();},
   reset:()=>{data=fresh();corrupt=false;conflict=false;persist();},
   download:()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Physik-9-Lernstand-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);}

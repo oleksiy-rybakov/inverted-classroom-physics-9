@@ -1,5 +1,5 @@
 (async function(){
- 'use strict';const $=id=>document.getElementById(id),safe=portalSafe;
+ 'use strict';await PortalUIReady;if(!Auth.isAuthenticated())return;const $=id=>document.getElementById(id),safe=portalSafe;
  let media=[];try{const r=await fetch('../../assets/media/energy/media.json');if(!r.ok)throw Error();media=await r.json();}catch{}
  let index=Math.min(4,Portal.get().missions.energy.preparation.chapter),lastVideoSave=0;
  while(index>0&&!Portal.canChapter(index))index--;
@@ -31,5 +31,5 @@
  $('next-chapter').onclick=()=>{if(!Portal.chapterDone(Portal.get(),LESSONS[index].id))return;if(index<4)switchChapter(index+1);else{savePosition();location.href='escape.html';}};
  $('open-question').value=Portal.get().missions.energy.preparation.question;
  $('open-question').oninput=e=>Portal.update(s=>s.missions.energy.preparation.question=e.target.value);
- window.addEventListener('pagehide',savePosition);render();
+ window.addEventListener('pagehide',savePosition);window.addEventListener('portalbeforelogout',savePosition);render();
 })();

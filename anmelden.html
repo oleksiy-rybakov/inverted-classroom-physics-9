@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="de" data-auth-state="pending">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#102a31">
+ <meta name="description" content="Melde dich mit deinem Schüler- oder Lehrerpasswort im Physik-9-Lernportal an.">
+ <title>Anmelden · Physik 9</title>
+ <style>html[data-auth-state="pending"] body{visibility:hidden}</style>
+ <link rel="icon" href="assets/favicon.svg"><link rel="stylesheet" href="assets/css/site.css"><link rel="stylesheet" href="assets/css/auth.css?v=roles1">
+ <script defer src="assets/js/auth-crypto.js?v=roles1"></script><script defer src="assets/js/auth.js?v=roles1"></script><script defer src="assets/js/login.js?v=roles1"></script>
+</head>
+<body data-page="login" data-root="">
+ <a class="skip" href="#main">Zur Anmeldung</a>
+ <header class="site-header"><div class="wrap header-inner"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">φ</span><span><strong>Physik 9</strong><small>ENTDECKEN. VERSTEHEN. ANWENDEN.</small></span></a><span class="eyebrow">DEIN LERNPORTAL · KLASSE 9</span></div></header>
+ <main class="wrap login-layout" id="main">
+  <section class="login-intro"><span class="eyebrow">DEINE NÄCHSTE ENTDECKUNG WARTET</span><h1>Ein Passwort.<br>Dein Weg zur<br><em>nächsten Mission.</em></h1><p>Schau dir die Lernvideos an, erprobe dein Wissen und öffne Schritt für Schritt die Bergstation.</p><div class="login-steps"><span>01 Verstehen</span><span>02 Ausprobieren</span><span>03 Gemeinsam lösen</span></div></section>
+  <section class="login-card" aria-labelledby="login-title"><h2 id="login-title">Willkommen zurück.</h2><p>Gib dein Schüler- oder Lehrerpasswort ein. Das Passwort bestimmt deinen Zugang.</p>
+   <form id="login-form"><label for="login-password">Passwort</label><input id="login-password" name="password" type="password" autocomplete="current-password" required maxlength="256" aria-describedby="login-message"><label class="password-toggle"><input type="checkbox" id="show-password">Passwort anzeigen</label><p id="login-message" role="alert"></p><button class="pbtn primary" type="submit" id="login-submit">Anmelden →</button></form>
+   <p id="existing-session" hidden>Du bist bereits als <strong id="current-role"></strong> angemeldet. <a id="continue-session" href="index.html">Weiter zu deinen Missionen →</a></p>
+   <p class="login-note">Das Passwort erhältst du von deiner Lehrkraft. Dein Lernstand bleibt auf diesem Gerät gespeichert. Melde dich an gemeinsam genutzten Geräten nach dem Arbeiten ab.</p>
+  </section>
+ </main>
+ <footer class="wrap footer"><span>PHYSIK 9 · INVERTED CLASSROOM</span><span>In deinem Tempo. Schritt für Schritt.</span></footer>
+ <noscript><style>html[data-auth-state="pending"] body{visibility:visible}body>*:not(noscript){display:none!important}</style><p>Bitte aktiviere JavaScript, um dich anzumelden und das Lernportal zu nutzen.</p></noscript>
+</body></html>

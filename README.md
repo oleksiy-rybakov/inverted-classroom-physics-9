@@ -10,12 +10,13 @@ Website: https://oleksiy-rybakov.github.io/inverted-classroom-physics-9/
 - 21 vorbereitende Aufgaben zu Energieformen, Einheiten, Höhenenergie, kinetischer Energie, Spannenergie und Energiebilanzen.
 - Das bestehende Energie-Escape-Game mit sechs Räumen und 16 Prüfungen, übernommen aus [energy-escaperoom](https://github.com/oleksiy-rybakov/energy-escaperoom). Originalrepository und Originalwebsite bleiben eigenständig.
 - Automatische Speicherung im Browser und Export/Import eines vollständigen JSON-Lernstands.
-- Lehrkraft-Vorschau, Hilfeseite und druckbare Lernkapitel.
+- Anmeldung mit getrennten Schüler- und Lehrerpasswörtern, verschlüsselter Lehrkraftbereich, Hilfeseite und druckbare Lernkapitel.
 - Zwei als „In Vorbereitung“ gekennzeichnete Plätze für spätere Missionen. Sie enthalten noch keine Lerninhalte.
 
 ## Aufbau
 
 ```text
+anmelden.html                    Passwortanmeldung und Rollenwahl durch das Passwort
 index.html                       Startseite und Lernpass
 hilfe.html                       Speichern, Laden und Gerätewechsel
 lehrkraft.html                   Vorschau, Unterrichtshinweise und Lösungen
@@ -26,6 +27,10 @@ assets/css/portal-bar.css        Gemeinsame Sicherungsleiste und Dialoge
 assets/css/energy-game.css       Gestaltung des bestehenden Spiels
 assets/js/missions.js            Missionsverzeichnis und Voraussetzungen
 assets/js/lessons.js             Lerntexte, Aufgaben und Antwortschlüssel
+assets/js/auth-crypto.js          Web-Crypto-Schlüsselableitung und Entschlüsselung
+assets/js/auth.js                 Sitzungen und Rollenprüfungen
+assets/js/login.js                Anmeldeformular
+assets/access/config.json         Verschlüsselte Rollenpakete, keine Klartextpasswörter
 assets/js/progress.js            Versioniertes Speichermodell und Validierung
 assets/js/shared.js              Export, Importvorschau und Meldungen
 assets/js/home.js                Fortschrittsanzeige und Missionsübersicht
@@ -34,9 +39,11 @@ assets/js/energy-{data,core,story,game}.js
 assets/media/energy/             MP4, WebVTT, Vorschaubilder und media.json
 assets/media/legacy/             Bilder und Stimmen des übernommenen Spiels
 tests/progress.test.cjs          Prüfungen für Speicher, Freischaltung und Physik
+tests/auth.test.cjs               Rollen, Sitzung, Verschlüsselung und Zugriffsschutz
+scripts/manage-access.cjs         Passwörter ändern, Lehrkraftpaket neu verschlüsseln
 ```
 
-Die Website besteht aus statischen HTML-, CSS- und JavaScript-Dateien. Sie benötigt keine Datenbank, keine Konten und keinen Build-Schritt. Alle Medien liegen im Repository; keine externe Videoeinbettung oder Laufzeitbibliothek ist erforderlich.
+Die Website besteht aus statischen HTML-, CSS- und JavaScript-Dateien. Sie benötigt keine Datenbank, keine individuellen Benutzerkonten und keinen Build-Schritt. Alle Medien liegen im Repository; keine externe Videoeinbettung oder Laufzeitbibliothek ist erforderlich.
 
 ## Lokal öffnen und veröffentlichen
 
@@ -48,7 +55,25 @@ GitHub Pages: **Deploy from a branch → main → / (root)**. Die Datei `.nojeky
 
 Die fünf Lernkapitel werden nacheinander geöffnet. Alle Aufgaben eines Kapitels müssen richtig beantwortet sein. Die Antwortprüfung ist rein lokal und nimmt keine Bewertung durch die Lehrkraft vor. Sind alle 21 Aufgaben richtig, ist das Escape Game verfügbar. Sein Abschluss wird erst nach den 16 bestandenen Prüfungen und dem geöffneten Codeschloss gezählt.
 
-Die Lehrkraft-Vorschau öffnet Inhalte ohne künstlich erzeugte Abschlüsse. Sie ist bewusst frei zugänglich. Dieses statische Portal ist kein geschütztes Prüfungs- oder Benotungssystem.
+Die Lehrkraft-Vorschau öffnet Inhalte ohne künstlich erzeugte Abschlüsse. Sie steht ausschließlich angemeldeten Lehrkräften zur Verfügung. Vorschau und Trainingsmodus sind getrennt vom Lernstand gespeichert und werden nicht durch importierte Dateien aktiviert.
+
+## Anmeldung und Rollen
+
+Das Passwort bestimmt die Rolle. Das Schülerpasswort öffnet Missionen, Lernvideos und Aufgaben. Das Lehrerpasswort öffnet zusätzlich den Lehrkraftbereich, die Lösungssammlung im Spiel, die Vorschau und den Trainingsmodus. Die tatsächlichen Passwörter sind nicht in diesem Repository dokumentiert.
+
+Direkte Aufrufe von `lehrkraft.html` zeigen angemeldeten Schülern nur eine Zugriffsmeldung. Ohne Anmeldung führen geschützte Seiten zur Anmeldeseite zurück. Bei deaktiviertem JavaScript wird kein geschützter Seiteninhalt eingeblendet. Die Lehrkraftseite und die fertige Escape-Lösungssammlung liegen nur als verschlüsseltes Paket vor und werden erst mit dem passenden Schlüssel entschlüsselt; ein verändertes Rollenfeld genügt nicht.
+
+Die Verschlüsselung verwendet AES-256-GCM mit zufälliger 96-Bit-IV und PBKDF2-HMAC-SHA-256 mit 600.000 Durchläufen und zufälligem 128-Bit-Salt pro Zugang. Rollenkennung und Portalversion sind als zusätzliche authentifizierte Daten gebunden. Umsetzung mit [Web Crypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey). Schlüssel und Rolle liegen für bis zu zwölf Stunden im Sitzungsspeicher des Tabs. Das Klartextpasswort wird nicht gespeichert. Abmelden entfernt die Anmeldung und meldet andere offene Portal-Tabs desselben Browsers ebenfalls ab. Lernstände bleiben erhalten.
+
+Alte Lernstandsdateien bleiben lesbar. Ihre früheren Flags `settings.preview` und `escape.training` werden beim Laden verworfen. Anmeldung, Schlüssel und Rollen sind niemals Bestandteil einer Lernstandsdatei. Es gibt weiterhin einen gemeinsamen Lernstand pro Browser; das Rollenpasswort erzeugt kein persönliches Konto.
+
+### Grenzen der statischen Veröffentlichung
+
+GitHub Pages stellt Dateien öffentlich bereit und führt keine serverseitige Zugriffskontrolle aus. Die Anmeldung steuert den regulären Lernweg, die Verschlüsselung schützt den aktuellen Lehrkraft-Inhalt mit der Stärke des gewählten Lehrerpassworts. Die Schüler-Medien sowie die lokale Aufgabenprüfung und deren Antwortdaten bleiben technisch einsehbar. Die frühere, bereits öffentliche Fassung und Git-Historie lassen sich dadurch nicht rückwirkend geheim machen. Für vertrauliche personenbezogene Daten oder eine manipulationsgeschützte Prüfung wird ein Server mit eigener Rechteprüfung benötigt.
+
+### Passwörter ändern
+
+`scripts/manage-access.cjs` liest ein JSON-Objekt über die Standardeingabe: `currentTeacherPassword`, `studentPassword` und `teacherPassword`. Es entschlüsselt das bestehende Lehrkraftpaket nur im Arbeitsspeicher und erzeugt für beide Zugänge neue Salts und Schlüssel. Die beiden neuen Passwörter müssen unterschiedlich sein. Zugangsdaten nicht in Befehlsargumente, Quellcode, Commits oder gespeicherte Eingabedateien schreiben. Anschließend ausschließlich die aktualisierte `assets/access/config.json` veröffentlichen. Alte Sitzungen können das neue Paket nicht entschlüsseln und müssen sich erneut anmelden; bereits offene Seiten werden erst bei ihrem nächsten Laden aktualisiert.
 
 ## Lernstände
 
@@ -69,7 +94,7 @@ Vor einem Gerätewechsel **Stand sichern**, am Zielgerät **Stand laden**. Keine
 
 ## Prüfen
 
-Mit Node.js: `node --test tests/progress.test.cjs`
+Mit Node.js: `node --test tests/*.test.cjs`
 
 Die Tests prüfen die 21 Lernaufgaben, Freischaltung, vollständige und unvollständige Spielstände, Neuladen, abgewiesene Dateien, beschädigten Speicher, Konflikte mehrerer Tabs und sämtliche 16 Rechenprüfungen des übernommenen Spiels. Zusätzlich wurde der Lernweg bis zum Escape Game im Browser bedient, eine Sicherung heruntergeladen und mit unveröffentlichten Eingaben wieder geladen; Desktop- und Smartphone-Layout wurden kontrolliert.
 

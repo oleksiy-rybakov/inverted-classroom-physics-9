@@ -1,7 +1,8 @@
-(function(){
+window.PortalUIReady=(async function(){
  'use strict';
  const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  window.portalSafe=safe;
+ if(!await Auth.requireRole())return;
  const root=document.body.dataset.root||'';
  const modal=document.createElement('dialog');modal.id='save-dialog';modal.className='portal-dialog';modal.setAttribute('aria-labelledby','save-title');document.body.append(modal);
  const file=document.createElement('input');file.type='file';file.accept='.json,application/json';file.hidden=true;file.id='load-state-file';document.body.append(file);
@@ -25,5 +26,5 @@
  window.addEventListener('portalnotice',notices);notices();
  document.querySelectorAll('[data-year]').forEach(e=>e.textContent='Physik 9 · Inverted Classroom');
  document.querySelectorAll('[data-print]').forEach(b=>b.onclick=()=>window.print());
- if(Portal.get().settings.preview){const e=document.createElement('div');e.className='preview-banner';e.textContent='Lehrkraft-Vorschau aktiv · Alle Lernkapitel und das Escape Game sind frei zugänglich. Abschlüsse werden dadurch nicht vergeben.';document.getElementById('portal-notices')?.append(e);}
+ if(Auth.isPreview()){const e=document.createElement('div');e.className='preview-banner';e.textContent='Lehrkraft-Vorschau aktiv · Alle Lernkapitel und das Escape Game sind frei zugänglich. Abschlüsse werden dadurch nicht vergeben.';document.getElementById('portal-notices')?.append(e);}
 })();
